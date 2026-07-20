@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IISV | Institut International de Science Vivante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0B1E3F;
+            --primary-dark: #06132B;
+            --gold: #C9A961;
+            --gold-light: #E6CC83;
+            --bg-light: #F7F8FA;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: #1A1F2E; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .cinzel { font-family: 'Cinzel', serif; }
+        .gold-gradient { background: linear-gradient(135deg, #C9A961 0%, #E6CC83 100%); }
+        .navy-gradient { background: linear-gradient(135deg, #0B1E3F 0%, #06132B 100%); }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .card-shadow:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; }
+        .modal.active { display: flex; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 navy-gradient rounded-full flex items-center justify-center border-2 border-[#C9A961]">
+                <span class="text-white font-bold text-xs cinzel">IISV</span>
+            </div>
+            <span class="cinzel text-xl tracking-widest text-[#0B1E3F] font-bold">INSTITUT INTERNATIONAL DE SCIENCE VIVANTE</span>
+        </div>
+        <div class="hidden md:flex gap-8 items-center text-sm font-medium uppercase tracking-wider text-gray-600">
+            <a href="#" onclick="showSection('home')" class="hover:text-[#C9A961] transition">Institut</a>
+            <a href="#" onclick="showSection('academy')" class="hover:text-[#C9A961] transition">Académie</a>
+            <a href="#" onclick="showSection('library')" class="hover:text-[#C9A961] transition">Bibliothèque</a>
+            <a href="#" onclick="openModal('loginModal')" class="bg-[#0B1E3F] text-white px-6 py-2 rounded shadow-lg hover:bg-opacity-90 transition">Accès Cabinet</a>
+            <button onclick="showSection('admin')" class="text-xs text-gray-400 border border-gray-300 px-2 py-1 rounded">Admin</button>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: ACCUEIL & IA PUBLIQUE -->
+    <section id="home" class="tab-content active">
+        <div class="flex flex-col md:flex-row h-screen">
+            <div class="md:w-3/5 relative overflow-hidden bg-black text-white">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Habib DOGO">
+                <div class="absolute bottom-10 left-10 max-w-xl">
+                    <h1 class="text-5xl mb-6 leading-tight">Comprendre les lois profondes qui gouvernent l’être humain.</h1>
+                    <p class="text-xl text-gray-300 italic">— Habib DOGO, Fondateur de l’IISV</p>
+                </div>
+            </div>
+            <div class="md:w-2/5 p-12 flex flex-col justify-center bg-white">
+                <div class="mb-8 group p-6 border-l-4 border-[#C9A961] bg-gray-50">
+                    <h3 class="text-[#0B1E3F] font-bold mb-2 flex items-center gap-2">
+                        <span>🧠</span> MENTOR IA (Accès Public)
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-4">Posez une question sur la Science Vivante...</p>
+                    <input type="text" placeholder="Comment transformer sa vie par la méthode IISV ?" class="w-full border-b border-gray-300 focus:border-[#C9A961] outline-none py-2 bg-transparent text-sm">
+                    <button class="mt-4 text-xs font-bold uppercase tracking-widest text-[#C9A961]">Interroger l'IA →</button>
+                </div>
+                <h2 class="cinzel text-xs font-bold text-[#C9A961] mb-2 uppercase tracking-tighter">Votre parcours commence ici</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">Enseignant, chercheur et mentor, j'accompagne les décideurs et les chercheurs de vérité dans une transformation intégrale de l'être.</p>
+                <div class="flex flex-col gap-4">
+                    <button onclick="openModal('signupModal')" class="gold-gradient text-[#0B1E3F] font-bold py-4 rounded shadow-xl uppercase text-sm tracking-widest">Commencer ma transformation</button>
+                    <button class="border border-[#0B1E3F] text-[#0B1E3F] py-4 rounded uppercase text-sm tracking-widest font-medium hover:bg-gray-50 transition">Découvrir la méthode</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPERTISES -->
+        <div class="py-24 px-12 bg-[#0B1E3F]">
+            <h2 class="text-white text-4xl text-center mb-16">Champs d'Expertise de l'Institut</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[#06132B] p-8 border-t-2 border-[#C9A961]">
+                    <h4 class="text-[#C9A961] font-bold mb-4">Science Vivante</h4>
+                    <p class="text-gray-400 text-sm">Initiateur d'une méthode articulant science, philosophie et dynamique du vivant.</p>
+                </div>
+                <div class="bg-[#06132B] p-8 border-t-2 border-[#C9A961]">
+                    <h4 class="text-[#C9A961] font-bold mb-4">Leadership Conscient</h4>
+                    <p class="text-gray-400 text-sm">Formation des décideurs à une gouvernance ancrée et éthique.</p>
+                </div>
+                <div class="bg-[#06132B] p-8 border-t-2 border-[#C9A961]">
+                    <h4 class="text-[#C9A961] font-bold mb-4">Recherche Indépendante</h4>
+                    <p class="text-gray-400 text-sm">Exploration des mécanismes de la connaissance et de la pensée humaine.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION CABINÉT PRIVÉ (SIMULÉ) -->
+    <section id="cabinet" class="tab-content p-8 max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h1 class="text-4xl text-[#0B1E3F]">Cabinet Personnel : <span class="text-[#C9A961]">Marc D.</span></h1>
+                <p class="text-gray-500">Accès strictement confidentiel - Session E2E chiffrée</p>
+            </div>
+            <div class="text-right">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-[#C9A961] ml-auto mb-2">
+                    <img src="https://i.pravatar.cc/150?u=marc" alt="Photo Client">
+                </div>
+                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">● Connecté</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Cabinet -->
+            <div class="space-y-4">
+                <div class="bg-white p-6 card-shadow rounded-lg">
+                    <h3 class="font-bold border-b pb-2 mb-4">Votre Mentor IA</h3>
+                    <div class="bg-gray-50 p-4 rounded text-sm text-gray-600 mb-4 h-48 overflow-y-auto italic">
+                        "Bonjour Marc, j'ai analysé vos notes de hier. Votre niveau de motivation semble en baisse. Souhaitez-vous un exercice de recentrage ?"
+                    </div>
+                    <input type="text" placeholder="Répondre à l'IA..." class="w-full text-xs border p-2 rounded mb-2">
+                    <button class="w-full bg-[#0B1E3F] text-white py-2 text-xs rounded">Envoyer</button>
+                </div>
+            </div>
+
+            <!-- Dashboard interactif -->
+            <div class="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Modules -->
+                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">📓</div>
+                    <h4 class="font-bold group-hover:text-white">Journal</h4>
+                </div>
+                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">📅</div>
+                    <h4 class="font-bold group-hover:text-white">Séances</h4>
+                </div>
+                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🎯</div>
+                    <h4 class="font-bold group-hover:text-white">Objectifs</h4>
+                </div>
+                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🧘</div>
+                    <h4 class="font-bold group-hover:text-white">Méditations</h4>
+                </div>
+                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🎥</div>
+                    <h4 class="font-bold group-hover:text-white">Visioconférence</h4>
+                </div>
+                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🔒</div>
+                    <h4 class="font-bold group-hover:text-white">Coffre-fort</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION ADMIN (MODIFIER LE SITE) -->
+    <section id="admin" class="tab-content p-12 bg-gray-900 min-h-screen text-white">
+        <div class="flex justify-between items-center mb-12">
+            <h1 class="text-3xl font-bold cinzel text-[#C9A961]">Console de Contrôle | Habib DOGO</h1>
+            <button onclick="showSection('home')" class="text-xs bg-gray-700 px-4 py-2 rounded">Sortir</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 space-y-4">
+                <button class="w-full text-left bg-[#C9A961] text-[#0B1E3F] p-4 rounded font-bold">Gestion des Cabinets</button>
+                <button class="w-full text-left bg-gray-800 p-4 rounded hover:bg-gray-700 transition">Modifier l'Accueil</button>
+                <button class="w-full text-left bg-gray-800 p-4 rounded hover:bg-gray-700 transition">Publier Bibliothèque</button>
+                <button class="w-full text-left bg-gray-800 p-4 rounded hover:bg-gray-700 transition">Paramètres IA & Mentor</button>
+            </div>
+            <div class="col-span-3 bg-white text-black p-8 rounded-xl shadow-2xl">
+                <h3 class="text-xl font-bold mb-6 border-b pb-4">Aperçu & Edition Rapide</h3>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Titre du Site (Héro)</label>
+                        <input type="text" value="Comprendre les lois profondes qui gouvernent l’être humain." class="w-full border p-3 rounded">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Statut Inscriptions</label>
+                            <select class="w-full border p-3 rounded">
+                                <option>Ouvert aux demandes</option>
+                                <option>Fermé (Code requis)</option>
+                                <option>Privé uniquement</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Tone de l'IA Publique</label>
+                            <select class="w-full border p-3 rounded">
+                                <option>Académique / Formel</option>
+                                <option>Accueillant / Mentor</option>
+                                <option>Philosophique / Abrait</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="alert('Modifications enregistrées ! (Simulation)')" class="bg-[#0B1E3F] text-white px-8 py-3 rounded font-bold">Mettre à jour le site IISV</button>
+                </div>
+
+                <div class="mt-12">
+                    <h4 class="font-bold mb-4">Demandes d'accès récentes (3)</h4>
+                    <table class="w-full text-sm">
+                        <tr class="bg-gray-50 border-b">
+                            <td class="p-3">Sandrine T.</td>
+                            <td class="p-3">Entrepreneure</td>
+                            <td class="p-3">sandrine@example.com</td>
+                            <td class="p-3"><button class="text-green-600 font-bold">Envoyer Code</button></td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-3">Jean-Luc M.</td>
+                            <td class="p-3">Directeur RH</td>
+                            <td class="p-3">jl@corporation.lu</td>
+                            <td class="p-3"><button class="text-green-600 font-bold">Envoyer Code</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL CONNEXION -->
+    <div id="loginModal" class="modal">
+        <div class="bg-white m-auto p-10 rounded-xl w-full max-w-md relative">
+            <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-gray-400">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-[#0B1E3F]">Accès au Sanctuaire</h2>
+            <div class="space-y-4">
+                <input type="email" placeholder="Adresse Email" class="w-full border p-3 rounded">
+                <input type="password" placeholder="Mot de passe" class="w-full border p-3 rounded">
+                <button onclick="loginSuccess()" class="w-full gold-gradient text-[#0B1E3F] font-bold py-3 rounded">S'authentifier</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INSCRIPTION -->
+    <div id="signupModal" class="modal">
+        <div class="bg-white m-auto p-10 rounded-xl w-full max-w-2xl relative overflow-y-auto max-h-[90vh]">
+            <button onclick="closeModal('signupModal')" class="absolute top-4 right-4 text-gray-400">&times;</button>
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-[#0B1E3F]">Demande d'Admission IISV</h2>
+                <p class="text-sm text-gray-500">L'inscription nécessite une validation et un code de confirmation.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 mb-2">Photo de profil</label>
+                    <div class="w-full h-32 border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center text-gray-400 cursor-pointer hover:bg-gray-50">
+                        <span class="text-2xl">+</span>
+                        <span class="text-[10px]">Photo format institutionnel</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <input type="text" placeholder="Nom Complet" class="w-full border p-3 rounded text-sm">
+                    <input type="email" placeholder="Email Professionnel" class="w-full border p-3 rounded text-sm">
+                </div>
+            </div>
+            
+            <div class="mt-6 space-y-4">
+                <select class="w-full border p-3 rounded text-sm italic text-gray-600">
+                    <option disabled selected>Quelle est votre dynamique actuelle ?</option>
+                    <option>Reprise de confiance directe</option>
+                    <option>Leadership stratégique</option>
+                    <option>Recherche de sens profond</option>
+                    <option>Construction de projet de vie</option>
+                </select>
+                <div class="bg-blue-50 p-4 border-l-4 border-[#0B1E3F] text-xs text-gray-600 italic">
+                    "En soumettant cette demande, vous recevrez un email pour confirmer votre identité. Une fois validé par l'Institut, un code d'invitation personnel vous sera transmis pour activer votre Cabinet Privé."
+                </div>
+                <button onclick="alert('Demande envoyée ! Vérifiez votre boîte mail (Simulé)')" class="w-full navy-gradient text-white font-bold py-4 rounded shadow-xl uppercase text-xs tracking-widest">Soumettre ma candidature</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-12 px-12">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="cinzel text-sm text-[#0B1E3F] font-bold">IISV © 2026 | Institut International de Science Vivante</div>
+            <div class="flex gap-8 text-xs text-gray-500 font-medium uppercase tracking-widest">
+                <a href="#">Confidentialité</a>
+                <a href="#">Recherche</a>
+                <a href="#">Mentions Légales</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function loginSuccess() {
+            closeModal('loginModal');
+            showSection('cabinet');
+            alert('Connexion réussie au Cabinet Privé de Marc D.');
+        }
+
+        // Simuler une réaction de l'IA (Public)
+        const publicIA = document.querySelector('#home input');
+        publicIA?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                alert("L'Intelligence de l'Institut analyse votre question : '" + this.value + "'. Dans la version finale, elle répondra ici avec la base de connaissance de Habib DOGO.");
+            }
+        });
+    </script>
+</body>
+</html>
