@@ -1,1142 +1,861 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IISV - Institut International des Sciences de la Vie</title>
-    <meta name="description" content="Découvrez l'Institut International des Sciences de la Vie (IISV). Formations de pointe, recherche et innovations dans le domaine des sciences du vivant.">
-    
-    <!-- Google Fonts & FontAwesome pour les icônes -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IISV – Science Vivante – Habib DOGO</title>
+  <meta
+    name="description"
+    content="IISV – Science Vivante – Habib DOGO. Un espace de connaissance, de recherche, de transformation humaine et d'accompagnement intellectuel fondé sur la rigueur, la pensée scientifique et le service de l'humanité."
+  />
+  <meta name="theme-color" content="#0b1f3a" />
 
-    <style>
-        /* --- STYLE CSS INTÉGRÉ (Pas besoin de fichier séparé !) --- */
-        :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #198754;
-            --dark-color: #212529;
-            --light-color: #f8f9fa;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --navy-2: #10294c;
+      --gold: #c9a646;
+      --gold-soft: #e5c66c;
+      --white: #ffffff;
+      --light: #f7f8fb;
+      --text: #1c2430;
+      --muted: #5f6978;
+      --border: #e4e7ee;
+      --shadow: 0 12px 35px rgba(7, 19, 38, 0.12);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --max: 1200px;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            color: var(--dark-color);
-            line-height: 1.6;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* --- EN-TÊTE & NAVIGATION --- */
-        header {
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .logo span {
-            color: var(--secondary-color);
-        }
+    ul {
+      list-style: none;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
+    .container {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+    }
 
-        .nav-links li a {
-            color: var(--dark-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 25px;
-            transition: color 0.3s;
-        }
+    .section {
+      padding: 88px 0;
+    }
 
-        .nav-links li a:hover {
-            color: var(--primary-color);
-        }
+    .section-light {
+      background: var(--light);
+    }
 
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
+    .section-title {
+      text-align: center;
+      margin-bottom: 18px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 700;
+      color: var(--navy);
+    }
 
-        /* --- ACCUEIL (HERO SECTION) --- */
-        #accueil {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #ffffff;
-            padding: 0 20px;
-            margin-top: 60px;
-        }
+    .section-subtitle {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 50px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
 
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
+    .line {
+      width: 90px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+      margin: 12px auto 22px;
+    }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(11, 31, 58, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.2s;
-        }
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
 
-        .btn:hover {
-            background-color: #0b5ed7;
-            transform: translateY(-3px);
-        }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-        /* --- SECTIONS GÉNÉRALES --- */
-        section {
-            padding: 80px 10%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .brand strong {
+      color: var(--white);
+      font-size: 1rem;
+      letter-spacing: 0.4px;
+    }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            position: relative;
-        }
+    .brand span {
+      color: #d8dbe3;
+      font-size: 0.82rem;
+    }
 
-        .section-title::after {
-            content: '';
-            width: 80px;
-            height: 4px;
-            background-color: var(--secondary-color);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-        /* --- À PROPOS --- */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
+    .menu a {
+      color: #eff3fb;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: 0.25s ease;
+    }
 
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
+    .menu a:hover {
+      color: var(--gold-soft);
+    }
 
-        .about-img img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-        /* --- FORMATIONS / DÉPARTEMENTS --- */
-        #formations {
-            background-color: var(--light-color);
-            max-width: 100%;
-        }
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(201, 166, 70, 0.15), transparent 28%),
+        linear-gradient(135deg, #08182e 0%, #0b1f3a 55%, #10294c 100%);
+      color: var(--white);
+      padding: 82px 0 70px;
+    }
 
-        .formations-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 42px;
+      align-items: center;
+    }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
+    .hero-tag {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(201, 166, 70, 0.45);
+      color: var(--gold-soft);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.03);
+    }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
+    .hero h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
 
-        .card:hover {
-            transform: translateY(-10px);
-        }
+    .hero h1 span {
+      color: var(--gold-soft);
+    }
 
-        .card i {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
+    .hero p {
+      color: #dde5f2;
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
 
-        .card h3 {
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
+    .hero-quote {
+      border-left: 4px solid var(--gold);
+      padding-left: 16px;
+      margin: 22px 0 30px;
+      color: #eef2f8;
+      font-style: italic;
+    }
 
-        /* --- CONTACT --- */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
 
-        .contact-info i {
-            color: var(--primary-color);
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
 
-        .contact-info p {
-            margin-bottom: 20px;
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #1d1707;
+      box-shadow: 0 10px 24px rgba(201, 166, 70, 0.22);
+    }
 
-        .contact-form form {
-            display: flex;
-            flex-direction: column;
-        }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.02);
+    }
 
-        .contact-form input, .contact-form textarea {
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+    .btn-outline {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--white);
+      background: transparent;
+    }
 
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
-        }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
 
-        .social-icons {
-            margin-bottom: 15px;
-        }
+    .hero-mini {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: #dbe4f0;
+      font-size: 0.95rem;
+    }
 
-        .social-icons a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: color 0.3s;
-        }
+    .hero-mini div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .social-icons a:hover {
-            color: var(--primary-color);
-        }
+    .hero-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-                padding: 20px;
-            }
+    .hero-photo {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: #0f223f;
+    }
 
-            .nav-links.active {
-                display: flex;
-            }
+    .hero-photo img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
 
-            .nav-links li {
-                margin: 15px 0;
-                text-align: center;
-            }
+    .photo-caption {
+      padding: 16px 8px 4px;
+      text-align: center;
+    }
 
-            .nav-links li a {
-                margin-left: 0;
-                display: block;
-            }
+    .photo-caption strong {
+      display: block;
+      color: var(--white);
+      font-size: 1.08rem;
+    }
 
-            .menu-toggle {
-                display: block;
-            }
+    .photo-caption span {
+      display: block;
+      color: #d7dfeb;
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
 
-            .about-content, .contact-container {
-                grid-template-columns: 1fr;
-            }
+    /* Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
 
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      color: var(--navy);
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(201,166,70,0.14), rgba(11,31,58,0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    /* About */
+    .about-box {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .highlight-list li {
+      margin-bottom: 12px;
+      color: var(--muted);
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .highlight-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* Timeline-like blocks */
+    .text-block {
+      margin-bottom: 18px;
+    }
+
+    .text-block h4 {
+      color: var(--navy);
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .text-block p {
+      color: var(--muted);
+    }
+
+    /* Research / books */
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--navy);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .book-card {
+      border-left: 4px solid var(--gold);
+    }
+
+    .book-card small {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* Programs */
+    .program-card ul li {
+      margin-bottom: 10px;
+      color: var(--muted);
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .program-card ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    /* Cabinet */
+    .cabinet-wrap {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .cabinet-steps li {
+      margin-bottom: 14px;
+      color: var(--muted);
+      padding-left: 26px;
+      position: relative;
+    }
+
+    .cabinet-steps li::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #251d09;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 15px;
+      font: inherit;
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(201, 166, 70, 0.12);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* Testimonials */
+    .testimonial {
+      position: relative;
+    }
+
+    .testimonial::before {
+      content: "“";
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(201, 166, 70, 0.2);
+      font-family: serif;
+    }
+
+    .testimonial strong {
+      display: block;
+      margin-top: 16px;
+      color: var(--navy);
+    }
+
+    .testimonial span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 28px;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .contact-list i {
+      color: var(--gold);
+      margin-top: 4px;
+      width: 18px;
+    }
+
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--navy);
+      color: #e6edf8;
+      padding: 34px 0;
+      margin-top: 20px;
+    }
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-soft);
+    }
+
+    /* Floating actions */
+    .floating-actions {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .float-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: var(--shadow);
+      font-size: 1.25rem;
+    }
+
+    .float-whatsapp { background: #25d366; }
+    .float-phone { background: var(--navy); }
+    .float-mail { background: var(--gold); color: #1f1806; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .about-box,
+      .cabinet-wrap,
+      .contact-grid,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .menu {
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: var(--navy);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding: 18px 4%;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .menu.active {
+        display: flex;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .section {
+        padding: 74px 0;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- BARRE DE NAVIGATION -->
-    <header>
-        <nav class="navbar">
-            <a href="#accueil" class="logo">II<span>SV</span></a>
-            <div class="menu-toggle" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links" id="nav-menu">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#apropos">À propos</a></li>
-                <li><a href="#formations">Formations</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- SECTION ACCUEIL (HERO) -->
-    <section id="accueil">
-        <div class="hero-content">
-            <h1>Institut International des Sciences de la Vie</h1>
-            <p>Façonner l'avenir de la recherche, de la santé et des biotechnologies à travers un enseignement d'excellence et d'innovation.</p>
-            <a href="#formations" class="btn">Découvrir nos filières</a>
-        </div>
-    </section>
-
-    <!-- SECTION À PROPOS -->
-    <section id="apropos">
-        <h2 class="section-title">À propos de l'IISV</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Une vocation d'excellence académique</h3>
-                <p>L'Institut International des Sciences de la Vie (IISV) forme les futurs leaders, chercheurs et techniciens du domaine de la santé, de l'agroalimentaire et de la protection de l'environnement.</p>
-                <br>
-                <p>Grâce à des laboratoires modernes et une pédagogie axée sur la pratique, nous assurons une insertion professionnelle rapide de nos diplômés à l'échelle internationale.</p>
-            </div>
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=600" alt="Laboratoire de recherche IISV">
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION FORMATIONS -->
-    <section id="formations">
-        <div class="formations-container">
-            <h2 class="section-title">Nos Domaines d'Études</h2>
-            <div class="cards-grid">
-                <!-- Carte 1 -->
-                <div class="card">
-                    <i class="fas fa-dna"></i>
-                    <h3>Biotechnologies</h3>
-                    <p>Apprenez à manipuler le vivant à des fins médicales, industrielles et de recherche de pointe.</p>
-                </div>
-                <!-- Carte 2 -->
-                <div class="card">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3>Sciences de la Santé</h3>
-                    <p>Des cursus spécialisés pour comprendre et soigner les pathologies modernes avec rigueur scientifique.</p>
-                </div>
-                <!-- Carte 3 -->
-                <div class="card">
-                    <i class="fas fa-seedling"></i>
-                    <h3>Écologie & Environnement</h3>
-                    <p>Étudiez la biodiversité et concevez des solutions pour préserver nos écosystèmes fragiles.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION CONTACT -->
-    <section id="contact">
-        <h2 class="section-title">Contactez-nous</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>Restons en contact</h3>
-                <br>
-                <p><i class="fas fa-map-marker-alt"></i> Adresse : Campus de l'IISV, Avenue des Sciences</p>
-                <p><i class="fas fa-phone"></i> Téléphone : +33 1 23 45 67 89</p>
-                <p><i class="fas fa-envelope"></i> Email : contact@iisv-edu.org</p>
-                <p><i class="fas fa-clock"></i> Heures d'ouverture : Lun - Ven (8h00 - 17h00)</p>
-            </div>
-            
-            <div class="contact-form">
-                <!-- Formulaire connecté à Web3Forms (gratuit et parfait pour GitHub Pages) -->
-                <form action="https://api.web3forms.com/submit" method="POST">
-                    <!-- Clé publique gratuite à récupérer sur https://web3forms.com si nécessaire -->
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                    
-                    <input type="text" name="nom" placeholder="Votre nom complet" required>
-                    <input type="email" name="email" placeholder="Votre adresse email" required>
-                    <textarea name="message" rows="5" placeholder="Votre message..." required></textarea>
-                    <button type="submit" class="btn">Envoyer le message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- PIED DE PAGE -->
-    <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <p>&copy; 2023-2024 IISV - Tous droits réservés.</p>
-    </footer>
-
-    <!-- SCRIPT JAVASCRIPT POUR LE MENU MOBILE -->
-    <script>
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const navMenu = document.getElementById('nav-menu');
-
-        // Ouvrir/Fermer le menu au clic sur le bouton burger
-        menuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        // Fermer automatiquement le menu mobile lorsqu'on clique sur un lien
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-    </script>
-</body>
-            </html>            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--secondary-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li a {
-            color: var(--dark-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 25px;
-            transition: color 0.3s;
-        }
-
-        .nav-links li a:hover {
-            color: var(--primary-color);
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* --- ACCUEIL (HERO SECTION) --- */
-        #accueil {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #ffffff;
-            padding: 0 20px;
-            margin-top: 60px;
-        }
-
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #0b5ed7;
-            transform: translateY(-3px);
-        }
-
-        /* --- SECTIONS GÉNÉRALES --- */
-        section {
-            padding: 80px 10%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 80px;
-            height: 4px;
-            background-color: var(--secondary-color);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* --- À PROPOS --- */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .about-img img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-
-        /* --- FORMATIONS / DÉPARTEMENTS --- */
-        #formations {
-            background-color: var(--light-color);
-            max-width: 100%;
-        }
-
-        .formations-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card i {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .card h3 {
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        /* --- CONTACT --- */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-
-        .contact-info i {
-            color: var(--primary-color);
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-
-        .contact-info p {
-            margin-bottom: 20px;
-        }
-
-        .contact-form form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .contact-form input, .contact-form textarea {
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
-        }
-
-        .social-icons {
-            margin-bottom: 15px;
-        }
-
-        .social-icons a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: var(--primary-color);
-        }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-                padding: 20px;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li {
-                margin: 15px 0;
-                text-align: center;
-            }
-
-            .nav-links li a {
-                margin-left: 0;
-                display: block;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .about-content, .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- BARRE DE NAVIGATION -->
-    <header>
-        <nav class="navbar">
-            <a href="#accueil" class="logo">II<span>SV</span></a>
-            <div class="menu-toggle" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links" id="nav-menu">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#apropos">À propos</a></li>
-                <li><a href="#formations">Formations</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- SECTION ACCUEIL (HERO) -->
-    <section id="accueil">
-        <div class="hero-content">
-            <h1>Institut International des Sciences de la Vie</h1>
-            <p>Façonner l'avenir de la recherche, de la santé et des biotechnologies à travers un enseignement d'excellence et d'innovation.</p>
-            <a href="#formations" class="btn">Découvrir nos filières</a>
-        </div>
-    </section>
-
-    <!-- SECTION À PROPOS -->
-    <section id="apropos">
-        <h2 class="section-title">À propos de l'IISV</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Une vocation d'excellence académique</h3>
-                <p>L'Institut International des Sciences de la Vie (IISV) forme les futurs leaders, chercheurs et techniciens du domaine de la santé, de l'agroalimentaire et de la protection de l'environnement.</p>
-                <br>
-                <p>Grâce à des laboratoires modernes et une pédagogie axée sur la pratique, nous assurons une insertion professionnelle rapide de nos diplômés à l'échelle internationale.</p>
-            </div>
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=600" alt="Laboratoire de recherche IISV">
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION FORMATIONS -->
-    <section id="formations">
-        <div class="formations-container">
-            <h2 class="section-title">Nos Domaines d'Études</h2>
-            <div class="cards-grid">
-                <!-- Carte 1 -->
-                <div class="card">
-                    <i class="fas fa-dna"></i>
-                    <h3>Biotechnologies</h3>
-                    <p>Apprenez à manipuler le vivant à des fins médicales, industrielles et de recherche de pointe.</p>
-                </div>
-                <!-- Carte 2 -->
-                <div class="card">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3>Sciences de la Santé</h3>
-                    <p>Des cursus spécialisés pour comprendre et soigner les pathologies modernes avec rigueur scientifique.</p>
-                </div>
-                <!-- Carte 3 -->
-                <div class="card">
-                    <i class="fas fa-seedling"></i>
-                    <h3>Écologie & Environnement</h3>
-                    <p>Étudiez la biodiversité et concevez des solutions pour préserver nos écosystèmes fragiles.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION CONTACT -->
-    <section id="contact">
-        <h2 class="section-title">Contactez-nous</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>Restons en contact</h3>
-                <br>
-                <p><i class="fas fa-map-marker-alt"></i> Adresse : Campus de l'IISV, Avenue des Sciences</p>
-                <p><i class="fas fa-phone"></i> Téléphone : +33 1 23 45 67 89</p>
-                <p><i class="fas fa-envelope"></i> Email : contact@iisv-edu.org</p>
-                <p><i class="fas fa-clock"></i> Heures d'ouverture : Lun - Ven (8h00 - 17h00)</p>
-            </div>
-            
-            <div class="contact-form">
-                <!-- Formulaire connecté à Web3Forms (gratuit et parfait pour GitHub Pages) -->
-                <form action="https://api.web3forms.com/submit" method="POST">
-                    <!-- Clé publique gratuite à récupérer sur https://web3forms.com si nécessaire -->
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                    
-                    <input type="text" name="nom" placeholder="Votre nom complet" required>
-                    <input type="email" name="email" placeholder="Votre adresse email" required>
-                    <textarea name="message" rows="5" placeholder="Votre message..." required></textarea>
-                    <button type="submit" class="btn">Envoyer le message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- PIED DE PAGE -->
-    <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <p>&copy; 2023-2024 IISV - Tous droits réservés.</p>
-    </footer>
-
-    <!-- SCRIPT JAVASCRIPT POUR LE MENU MOBILE -->
-    <script>
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const navMenu = document.getElementById('nav-menu');
-
-        // Ouvrir/Fermer le menu au clic sur le bouton burger
-        menuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        // Fermer automatiquement le menu mobile lorsqu'on clique sur un lien
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IISV | Institut International de Science Vivante</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0B1E3F;
-            --primary-dark: #06132B;
-            --gold: #C9A961;
-            --gold-light: #E6CC83;
-            --bg-light: #F7F8FA;
-        }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: #1A1F2E; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .cinzel { font-family: 'Cinzel', serif; }
-        .gold-gradient { background: linear-gradient(135deg, #C9A961 0%, #E6CC83 100%); }
-        .navy-gradient { background: linear-gradient(135deg, #0B1E3F 0%, #06132B 100%); }
-        .card-shadow { box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
-        .card-shadow:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; }
-        .modal.active { display: flex; }
-    </style>
-</head>
-<body>
-
-    <!-- NAVIGATION -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 navy-gradient rounded-full flex items-center justify-center border-2 border-[#C9A961]">
-                <span class="text-white font-bold text-xs cinzel">IISV</span>
-            </div>
-            <span class="cinzel text-xl tracking-widest text-[#0B1E3F] font-bold">INSTITUT INTERNATIONAL DE SCIENCE VIVANTE</span>
-        </div>
-        <div class="hidden md:flex gap-8 items-center text-sm font-medium uppercase tracking-wider text-gray-600">
-            <a href="#" onclick="showSection('home')" class="hover:text-[#C9A961] transition">Institut</a>
-            <a href="#" onclick="showSection('academy')" class="hover:text-[#C9A961] transition">Académie</a>
-            <a href="#" onclick="showSection('library')" class="hover:text-[#C9A961] transition">Bibliothèque</a>
-            <a href="#" onclick="openModal('loginModal')" class="bg-[#0B1E3F] text-white px-6 py-2 rounded shadow-lg hover:bg-opacity-90 transition">Accès Cabinet</a>
-            <button onclick="showSection('admin')" class="text-xs text-gray-400 border border-gray-300 px-2 py-1 rounded">Admin</button>
-        </div>
-    </nav>
-
-    <!-- SECTION 1: ACCUEIL & IA PUBLIQUE -->
-    <section id="home" class="tab-content active">
-        <div class="flex flex-col md:flex-row h-screen">
-            <div class="md:w-3/5 relative overflow-hidden bg-black text-white">
-                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Habib DOGO">
-                <div class="absolute bottom-10 left-10 max-w-xl">
-                    <h1 class="text-5xl mb-6 leading-tight">Comprendre les lois profondes qui gouvernent l’être humain.</h1>
-                    <p class="text-xl text-gray-300 italic">— Habib DOGO, Fondateur de l’IISV</p>
-                </div>
-            </div>
-            <div class="md:w-2/5 p-12 flex flex-col justify-center bg-white">
-                <div class="mb-8 group p-6 border-l-4 border-[#C9A961] bg-gray-50">
-                    <h3 class="text-[#0B1E3F] font-bold mb-2 flex items-center gap-2">
-                        <span>🧠</span> MENTOR IA (Accès Public)
-                    </h3>
-                    <p class="text-sm text-gray-500 mb-4">Posez une question sur la Science Vivante...</p>
-                    <input type="text" placeholder="Comment transformer sa vie par la méthode IISV ?" class="w-full border-b border-gray-300 focus:border-[#C9A961] outline-none py-2 bg-transparent text-sm">
-                    <button class="mt-4 text-xs font-bold uppercase tracking-widest text-[#C9A961]">Interroger l'IA →</button>
-                </div>
-                <h2 class="cinzel text-xs font-bold text-[#C9A961] mb-2 uppercase tracking-tighter">Votre parcours commence ici</h2>
-                <p class="text-gray-600 mb-8 leading-relaxed">Enseignant, chercheur et mentor, j'accompagne les décideurs et les chercheurs de vérité dans une transformation intégrale de l'être.</p>
-                <div class="flex flex-col gap-4">
-                    <button onclick="openModal('signupModal')" class="gold-gradient text-[#0B1E3F] font-bold py-4 rounded shadow-xl uppercase text-sm tracking-widest">Commencer ma transformation</button>
-                    <button class="border border-[#0B1E3F] text-[#0B1E3F] py-4 rounded uppercase text-sm tracking-widest font-medium hover:bg-gray-50 transition">Découvrir la méthode</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- EXPERTISES -->
-        <div class="py-24 px-12 bg-[#0B1E3F]">
-            <h2 class="text-white text-4xl text-center mb-16">Champs d'Expertise de l'Institut</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-[#06132B] p-8 border-t-2 border-[#C9A961]">
-                    <h4 class="text-[#C9A961] font-bold mb-4">Science Vivante</h4>
-                    <p class="text-gray-400 text-sm">Initiateur d'une méthode articulant science, philosophie et dynamique du vivant.</p>
-                </div>
-                <div class="bg-[#06132B] p-8 border-t-2 border-[#C9A961]">
-                    <h4 class="text-[#C9A961] font-bold mb-4">Leadership Conscient</h4>
-                    <p class="text-gray-400 text-sm">Formation des décideurs à une gouvernance ancrée et éthique.</p>
-                </div>
-                <div class="bg-[#06132B] p-8 border-t-2 border-[#C9A961]">
-                    <h4 class="text-[#C9A961] font-bold mb-4">Recherche Indépendante</h4>
-                    <p class="text-gray-400 text-sm">Exploration des mécanismes de la connaissance et de la pensée humaine.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION CABINÉT PRIVÉ (SIMULÉ) -->
-    <section id="cabinet" class="tab-content p-8 max-w-7xl mx-auto">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <h1 class="text-4xl text-[#0B1E3F]">Cabinet Personnel : <span class="text-[#C9A961]">Marc D.</span></h1>
-                <p class="text-gray-500">Accès strictement confidentiel - Session E2E chiffrée</p>
-            </div>
-            <div class="text-right">
-                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-[#C9A961] ml-auto mb-2">
-                    <img src="https://i.pravatar.cc/150?u=marc" alt="Photo Client">
-                </div>
-                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">● Connecté</span>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <!-- Sidebar Cabinet -->
-            <div class="space-y-4">
-                <div class="bg-white p-6 card-shadow rounded-lg">
-                    <h3 class="font-bold border-b pb-2 mb-4">Votre Mentor IA</h3>
-                    <div class="bg-gray-50 p-4 rounded text-sm text-gray-600 mb-4 h-48 overflow-y-auto italic">
-                        "Bonjour Marc, j'ai analysé vos notes de hier. Votre niveau de motivation semble en baisse. Souhaitez-vous un exercice de recentrage ?"
-                    </div>
-                    <input type="text" placeholder="Répondre à l'IA..." class="w-full text-xs border p-2 rounded mb-2">
-                    <button class="w-full bg-[#0B1E3F] text-white py-2 text-xs rounded">Envoyer</button>
-                </div>
-            </div>
-
-            <!-- Dashboard interactif -->
-            <div class="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-6">
-                <!-- Modules -->
-                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition">📓</div>
-                    <h4 class="font-bold group-hover:text-white">Journal</h4>
-                </div>
-                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition">📅</div>
-                    <h4 class="font-bold group-hover:text-white">Séances</h4>
-                </div>
-                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🎯</div>
-                    <h4 class="font-bold group-hover:text-white">Objectifs</h4>
-                </div>
-                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🧘</div>
-                    <h4 class="font-bold group-hover:text-white">Méditations</h4>
-                </div>
-                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🎥</div>
-                    <h4 class="font-bold group-hover:text-white">Visioconférence</h4>
-                </div>
-                <div class="bg-white p-8 rounded shadow text-center group cursor-pointer hover:bg-[#0B1E3F]">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🔒</div>
-                    <h4 class="font-bold group-hover:text-white">Coffre-fort</h4>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION ADMIN (MODIFIER LE SITE) -->
-    <section id="admin" class="tab-content p-12 bg-gray-900 min-h-screen text-white">
-        <div class="flex justify-between items-center mb-12">
-            <h1 class="text-3xl font-bold cinzel text-[#C9A961]">Console de Contrôle | Habib DOGO</h1>
-            <button onclick="showSection('home')" class="text-xs bg-gray-700 px-4 py-2 rounded">Sortir</button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="col-span-1 space-y-4">
-                <button class="w-full text-left bg-[#C9A961] text-[#0B1E3F] p-4 rounded font-bold">Gestion des Cabinets</button>
-                <button class="w-full text-left bg-gray-800 p-4 rounded hover:bg-gray-700 transition">Modifier l'Accueil</button>
-                <button class="w-full text-left bg-gray-800 p-4 rounded hover:bg-gray-700 transition">Publier Bibliothèque</button>
-                <button class="w-full text-left bg-gray-800 p-4 rounded hover:bg-gray-700 transition">Paramètres IA & Mentor</button>
-            </div>
-            <div class="col-span-3 bg-white text-black p-8 rounded-xl shadow-2xl">
-                <h3 class="text-xl font-bold mb-6 border-b pb-4">Aperçu & Edition Rapide</h3>
-                
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Titre du Site (Héro)</label>
-                        <input type="text" value="Comprendre les lois profondes qui gouvernent l’être humain." class="w-full border p-3 rounded">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Statut Inscriptions</label>
-                            <select class="w-full border p-3 rounded">
-                                <option>Ouvert aux demandes</option>
-                                <option>Fermé (Code requis)</option>
-                                <option>Privé uniquement</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Tone de l'IA Publique</label>
-                            <select class="w-full border p-3 rounded">
-                                <option>Académique / Formel</option>
-                                <option>Accueillant / Mentor</option>
-                                <option>Philosophique / Abrait</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button onclick="alert('Modifications enregistrées ! (Simulation)')" class="bg-[#0B1E3F] text-white px-8 py-3 rounded font-bold">Mettre à jour le site IISV</button>
-                </div>
-
-                <div class="mt-12">
-                    <h4 class="font-bold mb-4">Demandes d'accès récentes (3)</h4>
-                    <table class="w-full text-sm">
-                        <tr class="bg-gray-50 border-b">
-                            <td class="p-3">Sandrine T.</td>
-                            <td class="p-3">Entrepreneure</td>
-                            <td class="p-3">sandrine@example.com</td>
-                            <td class="p-3"><button class="text-green-600 font-bold">Envoyer Code</button></td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="p-3">Jean-Luc M.</td>
-                            <td class="p-3">Directeur RH</td>
-                            <td class="p-3">jl@corporation.lu</td>
-                            <td class="p-3"><button class="text-green-600 font-bold">Envoyer Code</button></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MODAL CONNEXION -->
-    <div id="loginModal" class="modal">
-        <div class="bg-white m-auto p-10 rounded-xl w-full max-w-md relative">
-            <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-gray-400">&times;</button>
-            <h2 class="text-2xl font-bold mb-6 text-[#0B1E3F]">Accès au Sanctuaire</h2>
-            <div class="space-y-4">
-                <input type="email" placeholder="Adresse Email" class="w-full border p-3 rounded">
-                <input type="password" placeholder="Mot de passe" class="w-full border p-3 rounded">
-                <button onclick="loginSuccess()" class="w-full gold-gradient text-[#0B1E3F] font-bold py-3 rounded">S'authentifier</button>
-            </div>
-        </div>
+  <header>
+    <div class="container nav">
+      <a href="#accueil" class="brand">
+        <strong>IISV – Science Vivante – Habib DOGO</strong>
+        <span>Connaissance, transformation humaine et accompagnement intellectuel</span>
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav class="menu" id="menu">
+        <a href="#accueil">Accueil</a>
+        <a href="#apropos">À propos</a>
+        <a href="#biographie">Biographie</a>
+        <a href="#vision">Vision</a>
+        <a href="#science-vivante">Science Vivante</a>
+        <a href="#recherches">Recherches</a>
+        <a href="#oeuvres">Œuvres</a>
+        <a href="#programmes">Programmes</a>
+        <a href="#cabinet">Espace privé d’accompagnement</a>
+        <a href="#temoignages">Témoignages</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- MODAL INSCRIPTION -->
-    <div id="signupModal" class="modal">
-        <div class="bg-white m-auto p-10 rounded-xl w-full max-w-2xl relative overflow-y-auto max-h-[90vh]">
-            <button onclick="closeModal('signupModal')" class="absolute top-4 right-4 text-gray-400">&times;</button>
-            <div class="text-center mb-8">
-                <h2 class="text-2xl font-bold text-[#0B1E3F]">Demande d'Admission IISV</h2>
-                <p class="text-sm text-gray-500">L'inscription nécessite une validation et un code de confirmation.</p>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 mb-2">Photo de profil</label>
-                    <div class="w-full h-32 border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center text-gray-400 cursor-pointer hover:bg-gray-50">
-                        <span class="text-2xl">+</span>
-                        <span class="text-[10px]">Photo format institutionnel</span>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <input type="text" placeholder="Nom Complet" class="w-full border p-3 rounded text-sm">
-                    <input type="email" placeholder="Email Professionnel" class="w-full border p-3 rounded text-sm">
-                </div>
-            </div>
-            
-            <div class="mt-6 space-y-4">
-                <select class="w-full border p-3 rounded text-sm italic text-gray-600">
-                    <option disabled selected>Quelle est votre dynamique actuelle ?</option>
-                    <option>Reprise de confiance directe</option>
-                    <option>Leadership stratégique</option>
-                    <option>Recherche de sens profond</option>
-                    <option>Construction de projet de vie</option>
-                </select>
-                <div class="bg-blue-50 p-4 border-l-4 border-[#0B1E3F] text-xs text-gray-600 italic">
-                    "En soumettant cette demande, vous recevrez un email pour confirmer votre identité. Une fois validé par l'Institut, un code d'invitation personnel vous sera transmis pour activer votre Cabinet Privé."
-                </div>
-                <button onclick="alert('Demande envoyée ! Vérifiez votre boîte mail (Simulé)')" class="w-full navy-gradient text-white font-bold py-4 rounded shadow-xl uppercase text-xs tracking-widest">Soumettre ma candidature</button>
-            </div>
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-tag">Science, pensée, transformation et accompagnement</div>
+          <h1>IISV – <span>Science Vivante</span> – Habib DOGO</h1>
+          <p>
+            Comprendre la vie, former l’esprit, bâtir l’avenir.  
+            Ce site est un espace de connaissance, de recherche, de transmission, d’accompagnement
+            intellectuel et de transformation humaine au service de celles et ceux qui veulent avancer
+            avec rigueur, clarté, discipline et vision.
+          </p>
+
+          <div class="hero-quote">
+            « La connaissance n’atteint sa pleine valeur que lorsqu’elle transforme l’être humain et contribue au progrès de la société. »
+          </div>
+
+          <div class="hero-actions">
+            <a href="#cabinet" class="btn btn-primary">
+              <i class="fa-solid fa-user-shield"></i> Créer mon cabinet privé
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <i class="fa-solid fa-envelope"></i> Me contacter
+            </a>
+            <a href="#recherches" class="btn btn-outline">
+              <i class="fa-solid fa-book-open-reader"></i> Découvrir mes travaux
+            </a>
+          </div>
+
+          <div class="hero-mini">
+            <div><i class="fa-solid fa-location-dot"></i> Yaoundé – Cotonou – Belgique</div>
+            <div><i class="fa-solid fa-phone"></i> Contact direct et suivi personnalisé</div>
+            <div><i class="fa-solid fa-lock"></i> Confidentialité et accompagnement sérieux</div>
+          </div>
         </div>
-    </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-white border-t border-gray-200 py-12 px-12">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="cinzel text-sm text-[#0B1E3F] font-bold">IISV © 2026 | Institut International de Science Vivante</div>
-            <div class="flex gap-8 text-xs text-gray-500 font-medium uppercase tracking-widest">
-                <a href="#">Confidentialité</a>
-                <a href="#">Recherche</a>
-                <a href="#">Mentions Légales</a>
-            </div>
+        <div class="hero-card">
+          <div class="hero-photo">
+            <img src="habib-dogo.jpg" alt="Portrait officiel de Habib DOGO" />
+          </div>
+          <div class="photo-caption">
+            <strong>DOGO Habib</strong>
+            <span>Auteur, enseignant, conférencier et fondateur d’une vision intellectuelle orientée vers la transformation humaine</span>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        function showSection(id) {
-            document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-        }
+    <section class="section" id="apropos">
+      <div class="container">
+        <h2 class="section-title">À propos</h2>
+        <div class="line"></div>
+        <p class="section-subtitle">
+          IISV fondé par Habib DOGO est un cadre intellectuel et humain orienté vers la formation de l’esprit,
+          la diffusion des savoirs, la recherche, l’accompagnement personnel et la construction progressive
+          d’un futur institut physique au service de l’humanité.
+        </p>
 
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
+        <div class="about-box">
+          <div class="card">
+            <h3>Une démarche intellectuelle vivante</h3>
+            <p>
+              Le projet ne se limite pas à une structure académique classique. Il s’agit d’un espace où la connaissance,
+              le savoir, la méthode, la réflexion, la conscience et l’exigence intérieure se rencontrent pour aider
+              chacun à mieux comprendre la vie, l’univers, les relations humaines, la paix, le développement personnel
+              et les grandes questions du monde contemporain.
+            </p>
+            <br />
+            <p>
+              Au centre de cette démarche se trouve <strong>Science Vivante</strong>, une approche interdisciplinaire
+              qui cherche à unir réflexion scientifique, exigence philosophique, transformation humaine et service concret.
+            </p>
+          </div>
 
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
+          <div class="card">
+            <h3>Ce que ce projet veut offrir</h3>
+            <ul class="highlight-list">
+              <li>Transmettre des connaissances utiles, profondes et accessibles.</li>
+              <li>Former des esprits disciplinés, critiques et créateurs.</li>
+              <li>Aider chacun à avancer vers plus de clarté, de stabilité et de maturité.</li>
+              <li>Accompagner des élèves, apprenants et chercheurs de manière confidentielle.</li>
+              <li>Contribuer à la renaissance intellectuelle et scientifique africaine.</li>
+            </ul>
+          </div>
+        </div>
 
-        function loginSuccess() {
-            closeModal('loginModal');
-            showSection('cabinet');
-            alert('Connexion réussie au Cabinet Privé de Marc D.');
-        }
-
-        // Simuler une réaction de l'IA (Public)
-        const publicIA = document.querySelector('#home input');
-        publicIA?.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                alert("L'Intelligence de l'Institut analyse votre question : '" + this.value + "'. Dans la version finale, elle répondra ici avec la base de connaissance de Habib DOGO.");
-            }
-        });
-    </script>
-</body>
-</html>
+        <div class="stats">
+          <div class="stat">
+            <strong>3</strong>
+            <span>Pays liés à votre parcours</span>
+          </div>
+          <div class="stat">
+            <strong>10+</strong>
+            <span>Domaines de réflexion et de recherche</span>
+          </div>
+          <div class="stat">
+            <strong>8</strong>
+            <span>Volumes prévus pour la Grammaire Scientifique Africaine</span>
+          </div>
+          <div class="stat">
+            <strong>1</strong>
+     
