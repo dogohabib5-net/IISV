@@ -45,7 +45,8 @@
       padding: 24px;
       background: linear-gradient(135deg, #08182e 0%, #0b1f3a 55%, #10294c 100%);
     }
-                                                                                  login-card {
+
+    .login-card {
       background: #fff;
       border-radius: 18px;
       padding: 32px;
@@ -89,9 +90,7 @@
       border-radius: 999px;
       cursor: pointer;
       font: inherit;
-    }
-
-    #login-error {
+    }#login-error {
       color: #c0392b;
       font-size: 0.85rem;
       margin-top: 10px;
@@ -107,8 +106,9 @@
 
     #admin-screen.active {
       display: grid;
-      }
-    sidebar {
+    }
+
+    .sidebar {
       background: var(--navy);
       color: #fff;
       padding: 20px 0;
@@ -157,7 +157,9 @@
       font-size: 0.8rem;
       color: #b9c2d4;
       margin-top: 2px;
-    }empty-list {
+    }
+
+    .empty-list {
       padding: 18px;
       color: #b9c2d4;
       font-size: 0.9rem;
@@ -185,9 +187,7 @@
       color: var(--muted);
       font-size: 0.85rem;
       margin-top: 4px;
-    }
-
-    .chat-messages {
+    }chat-messages {
       flex: 1;
       overflow-y: auto;
       padding: 20px 24px;
@@ -217,7 +217,9 @@
       background: var(--navy);
       color: #fff;
       border-bottom-right-radius: 4px;
-  }chat-input-row {
+    }
+
+    .chat-input-row {
       display: flex;
       gap: 10px;
       padding: 16px 24px;
@@ -265,8 +267,7 @@
     }
   </style>
 </head>
-<body>
-  <div id="login-screen">
+<body><div id="login-screen">
     <div class="login-card">
       <h1><i class="fa-solid fa-shield-halved"></i>&nbsp; Administration IISV</h1>
       <p>Connectez-vous pour accéder aux cabinets privés de vos clients.</p>
@@ -320,7 +321,6 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-
     const loginScreen = document.getElementById('login-screen');
     const adminScreen = document.getElementById('admin-screen');
     const loginForm = document.getElementById('login-form');
@@ -376,6 +376,7 @@
         if (unsubscribeMessages) unsubscribeMessages();
       }
     });
+
     function loadClients() {
       unsubscribeClients = db
         .collection('cabinets')
@@ -401,9 +402,7 @@
             clientListEl.appendChild(item);
           });
         });
-    }
-
-    function openClient(id, data) {
+        }function openClient(id, data) {
       currentClientId = id;
       document.querySelectorAll('.client-item').forEach(function (el) {
         el.classList.remove('active');
@@ -436,11 +435,17 @@
           });
           chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
         });
-      }
+    }
+
     replyForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const text = replyInput.value.trim();
-      if (!text || !currentClientId) return;
+
+      if (!currentClientId) {
+        alert('Aucun client sélectionné. Appuyez d’abord sur un nom dans la liste à gauche.');
+        return;
+      }
+      if (!text) return;
 
       replyInput.value = '';
 
@@ -451,11 +456,12 @@
           sender: 'admin',
           text: text,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .catch(function (err) {
+          alert('Erreur lors de l’envoi : ' + err.message);
+          replyInput.value = text;
         });
     });
   </script>
 </body>
 </html>
-    
-      
-    
