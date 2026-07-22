@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administration — IISV</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --gold: #c9a646;
+      --gold-soft: #e5c66c;
+      --light: #f7f8fb;
+      --text: #1c2430;
+      --muted: #5f6978;
+      --border: #e4e7ee;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--light);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Login */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #08182e 0%, #0b1f3a 55%, #10294c 100%);
+    }
+                                                                                  login-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 32px;
+      width: min(100%, 380px);
+      box-shadow: 0 12px 35px rgba(7, 19, 38, 0.25);
+    }
+
+    .login-card h1 {
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .login-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .login-card input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .login-card input:focus {
+      border-color: var(--gold);
+    }
+
+    .login-card button {
+      width: 100%;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #1d1707;
+      font-weight: 700;
+      padding: 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    #login-error {
+      color: #c0392b;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Admin layout */
+    #admin-screen {
+      display: none;
+      min-height: 100vh;
+      grid-template-columns: 320px 1fr;
+    }
+
+    #admin-screen.active {
+      display: grid;
+      }
+    sidebar {
+      background: var(--navy);
+      color: #fff;
+      padding: 20px 0;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    .sidebar-header {
+      padding: 0 18px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 10px;
+    }
+
+    .sidebar-header strong {
+      font-size: 1rem;
+    }
+
+    .sidebar-header button {
+      background: transparent;
+      border: none;
+      color: #d8dbe3;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .client-item {
+      padding: 14px 18px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .client-item:hover, .client-item.active {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .client-item strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .client-item span {
+      display: block;
+      font-size: 0.8rem;
+      color: #b9c2d4;
+      margin-top: 2px;
+    }empty-list {
+      padding: 18px;
+      color: #b9c2d4;
+      font-size: 0.9rem;
+    }
+
+    /* Chat panel */
+    .chat-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .chat-header {
+      padding: 18px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chat-header h2 {
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+
+    .chat-header p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg {
+      max-width: 70%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+
+    .msg-client {
+      align-self: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg-admin {
+      align-self: flex-end;
+      background: var(--navy);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+  }chat-input-row {
+      display: flex;
+      gap: 10px;
+      padding: 16px 24px;
+      background: #fff;
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-input-row input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font: inherit;
+      outline: none;
+    }
+
+    .chat-input-row button {
+      border: none;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #1d1707;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .no-selection {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      #admin-screen.active {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        max-height: 40vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="login-screen">
+    <div class="login-card">
+      <h1><i class="fa-solid fa-shield-halved"></i>&nbsp; Administration IISV</h1>
+      <p>Connectez-vous pour accéder aux cabinets privés de vos clients.</p>
+      <form id="login-form">
+        <input type="email" id="login-email" placeholder="E-mail" required autocomplete="username" />
+        <input type="password" id="login-password" placeholder="Mot de passe" required autocomplete="current-password" />
+        <button type="submit">Se connecter</button>
+      </form>
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <div id="admin-screen">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <strong><i class="fa-solid fa-user-shield"></i>&nbsp; Cabinets</strong>
+        <button id="logout-btn">Déconnexion</button>
+      </div>
+      <div id="client-list">
+        <p class="empty-list">Chargement…</p>
+      </div>
+    </aside>
+
+    <section class="chat-panel">
+      <div id="no-selection" class="no-selection">
+        Sélectionnez un client à gauche pour voir et répondre à son cabinet.
+      </div>
+      <div id="chat-active" style="display:none; flex-direction:column; height:100%;">
+        <div class="chat-header">
+          <h2 id="chat-client-name"></h2>
+          <p id="chat-client-meta"></p>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <form class="chat-input-row" id="reply-form">
+          <input type="text" id="reply-input" placeholder="Répondre…" autocomplete="off" />
+          <button type="submit" aria-label="Envoyer"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD5ADGuZs98c5Fepo_4dpy4GSl-vpVt0Lk",
+      authDomain: "iisv-bf703.firebaseapp.com",
+      projectId: "iisv-bf703",
+      storageBucket: "iisv-bf703.firebasestorage.app",
+      messagingSenderId: "911168343842",
+      appId: "1:911168343842:web:976d23f9247d379f189f7b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const loginScreen = document.getElementById('login-screen');
+    const adminScreen = document.getElementById('admin-screen');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+    const logoutBtn = document.getElementById('logout-btn');
+    const clientListEl = document.getElementById('client-list');
+    const noSelectionEl = document.getElementById('no-selection');
+    const chatActiveEl = document.getElementById('chat-active');
+    const chatMessagesEl = document.getElementById('chat-messages');
+    const chatClientName = document.getElementById('chat-client-name');
+    const chatClientMeta = document.getElementById('chat-client-meta');
+    const replyForm = document.getElementById('reply-form');
+    const replyInput = document.getElementById('reply-input');
+
+    let currentClientId = null;
+    let unsubscribeMessages = null;
+    let unsubscribeClients = null;
+
+    const sujetLabels = {
+      accompagnement: 'Accompagnement personnel',
+      formation: 'Formation intellectuelle',
+      conference: 'Conférence / intervention',
+      autre: 'Autre'
+    };
+
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      loginError.style.display = 'none';
+      auth
+        .signInWithEmailAndPassword(
+          document.getElementById('login-email').value,
+          document.getElementById('login-password').value
+        )
+        .catch(function (err) {
+          loginError.textContent = 'Connexion impossible : vérifiez l’e-mail et le mot de passe.';
+          loginError.style.display = 'block';
+        });
+    });
+
+    logoutBtn.addEventListener('click', function () {
+      auth.signOut();
+    });
+
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        loginScreen.style.display = 'none';
+        adminScreen.classList.add('active');
+        loadClients();
+      } else {
+        loginScreen.style.display = 'flex';
+        adminScreen.classList.remove('active');
+        if (unsubscribeClients) unsubscribeClients();
+        if (unsubscribeMessages) unsubscribeMessages();
+      }
+    });
+    function loadClients() {
+      unsubscribeClients = db
+        .collection('cabinets')
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(function (snapshot) {
+          clientListEl.innerHTML = '';
+
+          if (snapshot.empty) {
+            clientListEl.innerHTML = '<p class="empty-list">Aucun cabinet pour le moment.</p>';
+            return;
+          }
+
+          snapshot.forEach(function (doc) {
+            const d = doc.data();
+            const item = document.createElement('div');
+            item.className = 'client-item' + (doc.id === currentClientId ? ' active' : '');
+            item.innerHTML =
+              '<strong>' + (d.nom || 'Sans nom') + '</strong>' +
+              '<span>' + (d.telephone || '') + '</span>';
+            item.addEventListener('click', function () {
+              openClient(doc.id, d);
+            });
+            clientListEl.appendChild(item);
+          });
+        });
+    }
+
+    function openClient(id, data) {
+      currentClientId = id;
+      document.querySelectorAll('.client-item').forEach(function (el) {
+        el.classList.remove('active');
+      });
+
+      noSelectionEl.style.display = 'none';
+      chatActiveEl.style.display = 'flex';
+
+      chatClientName.textContent = data.nom || 'Client';
+      const metaParts = [];
+      if (data.telephone) metaParts.push(data.telephone);
+      if (data.email) metaParts.push(data.email);
+      if (data.sujet) metaParts.push(sujetLabels[data.sujet] || data.sujet);
+      chatClientMeta.textContent = metaParts.join(' · ');
+
+      if (unsubscribeMessages) unsubscribeMessages();
+      unsubscribeMessages = db
+        .collection('cabinets')
+        .doc(id)
+        .collection('messages')
+        .orderBy('timestamp', 'asc')
+        .onSnapshot(function (snapshot) {
+          chatMessagesEl.innerHTML = '';
+          snapshot.forEach(function (doc) {
+            const m = doc.data();
+            const div = document.createElement('div');
+            div.className = 'msg ' + (m.sender === 'admin' ? 'msg-admin' : 'msg-client');
+            div.textContent = m.text;
+            chatMessagesEl.appendChild(div);
+          });
+          chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+        });
+      }
+    replyForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const text = replyInput.value.trim();
+      if (!text || !currentClientId) return;
+
+      replyInput.value = '';
+
+      db.collection('cabinets')
+        .doc(currentClientId)
+        .collection('messages')
+        .add({
+          sender: 'admin',
+          text: text,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    });
+  </script>
+</body>
+</html>
+    
+      
+    
