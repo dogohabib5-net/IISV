@@ -90,7 +90,9 @@
       border-radius: 999px;
       cursor: pointer;
       font: inherit;
-    }#login-error {
+    }
+
+    #login-error {
       color: #c0392b;
       font-size: 0.85rem;
       margin-top: 10px;
@@ -187,7 +189,9 @@
       color: var(--muted);
       font-size: 0.85rem;
       margin-top: 4px;
-    }chat-messages {
+    }
+
+    .chat-messages {
       flex: 1;
       overflow-y: auto;
       padding: 20px 24px;
@@ -257,6 +261,78 @@
       text-align: center;
     }
 
+    .tab-btn {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #d8dbe3;
+      padding: 8px;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--gold);
+      color: #1d1707;
+      border-color: var(--gold);
+      font-weight: 700;
+    }
+
+    .pub-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px 24px 0;
+    }
+
+    .pub-form input,
+    .pub-form select,
+    .pub-form textarea {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      outline: none;
+    }
+
+    .pub-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .pub-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .pub-item h4 {
+      color: var(--navy);
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+
+    .pub-item p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .pub-item button {
+      border: none;
+      background: transparent;
+      color: #c0392b;
+      cursor: pointer;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 760px) {
       #admin-screen.active {
         grid-template-columns: 1fr;
@@ -267,7 +343,9 @@
     }
   </style>
 </head>
-<body><div id="login-screen">
+<body>
+
+  <div id="login-screen">
     <div class="login-card">
       <h1><i class="fa-solid fa-shield-halved"></i>&nbsp; Administration IISV</h1>
       <p>Connectez-vous pour accéder aux cabinets privés de vos clients.</p>
@@ -283,15 +361,19 @@
   <div id="admin-screen">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <strong><i class="fa-solid fa-user-shield"></i>&nbsp; Cabinets</strong>
+        <strong><i class="fa-solid fa-user-shield"></i>&nbsp; <span id="sidebar-title">Cabinets</span></strong>
         <button id="logout-btn">Déconnexion</button>
+      </div>
+      <div style="display:flex; gap:8px; padding:0 18px 12px;">
+        <button id="tab-cabinets" class="tab-btn active">Cabinets</button>
+        <button id="tab-publications" class="tab-btn">Publications</button>
       </div>
       <div id="client-list">
         <p class="empty-list">Chargement…</p>
       </div>
     </aside>
 
-    <section class="chat-panel">
+    <section class="chat-panel" id="panel-cabinets">
       <div id="no-selection" class="no-selection">
         Sélectionnez un client à gauche pour voir et répondre à son cabinet.
       </div>
@@ -305,6 +387,30 @@
           <input type="text" id="reply-input" placeholder="Répondre…" autocomplete="off" />
           <button type="submit" aria-label="Envoyer"><i class="fa-solid fa-paper-plane"></i></button>
         </form>
+      </div>
+    </section>
+
+    <section class="chat-panel" id="panel-publications" style="display:none; overflow-y:auto;">
+      <div class="pub-form-wrap">
+        <h2 style="padding:20px 24px 0; color:var(--navy);">Publier du nouveau contenu</h2>
+        <form id="pub-form" class="pub-form">
+          <input type="text" id="pub-title" placeholder="Titre" required />
+          <select id="pub-type" required>
+            <option value="article">Article (texte)</option>
+            <option value="document">Document (lien de téléchargement)</option>
+            <option value="audio">Audio (lien direct vers un fichier .mp3)</option>
+            <option value="video">Vidéo (lien YouTube)</option>
+          </select>
+          <textarea id="pub-content" placeholder="Texte, description ou résumé" required></textarea>
+          <input type="url" id="pub-url" placeholder="Lien (pour document, audio ou vidéo) — laisser vide pour un article" />
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start;">
+            <i class="fa-solid fa-paper-plane"></i> Publier
+          </button>
+          <p id="pub-status" style="display:none; color:#1e7d43; font-size:0.9rem;"></p>
+        </form>
+
+        <h2 style="padding:28px 24px 0; color:var(--navy);">Publications existantes</h2>
+        <div id="pub-list" style="padding:16px 24px 24px;"></div>
       </div>
     </section>
   </div>
@@ -321,6 +427,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+
     const loginScreen = document.getElementById('login-screen');
     const adminScreen = document.getElementById('admin-screen');
     const loginForm = document.getElementById('login-form');
@@ -378,9 +485,13 @@
     });
 
     function loadClients() {
+      // On écoute toute la collection sans "orderBy" côté serveur : un tri par
+      // date sur le serveur exclut silencieusement tout document dont
+      // l'horodatage n'est pas encore confirmé, ce qui faisait disparaître
+      // les cabinets les plus anciens. On trie donc nous-mêmes, côté client,
+      // ce qui garantit que TOUS les cabinets restent toujours visibles.
       unsubscribeClients = db
         .collection('cabinets')
-        .orderBy('createdAt', 'desc')
         .onSnapshot(function (snapshot) {
           clientListEl.innerHTML = '';
 
@@ -389,7 +500,13 @@
             return;
           }
 
-          snapshot.forEach(function (doc) {
+          const docs = snapshot.docs.slice().sort(function (a, b) {
+            const ta = a.data().createdAt && a.data().createdAt.toMillis ? a.data().createdAt.toMillis() : 0;
+            const tb = b.data().createdAt && b.data().createdAt.toMillis ? b.data().createdAt.toMillis() : 0;
+            return tb - ta;
+          });
+
+          docs.forEach(function (doc) {
             const d = doc.data();
             const item = document.createElement('div');
             item.className = 'client-item' + (doc.id === currentClientId ? ' active' : '');
@@ -402,7 +519,9 @@
             clientListEl.appendChild(item);
           });
         });
-        }function openClient(id, data) {
+    }
+
+    function openClient(id, data) {
       currentClientId = id;
       document.querySelectorAll('.client-item').forEach(function (el) {
         el.classList.remove('active');
@@ -462,6 +581,103 @@
           replyInput.value = text;
         });
     });
+
+    // --- Onglets Cabinets / Publications ---
+    const tabCabinets = document.getElementById('tab-cabinets');
+    const tabPublications = document.getElementById('tab-publications');
+    const panelCabinets = document.getElementById('panel-cabinets');
+    const panelPublications = document.getElementById('panel-publications');
+    const sidebarTitle = document.getElementById('sidebar-title');
+
+    let unsubscribePublications = null;
+
+    tabCabinets.addEventListener('click', function () {
+      tabCabinets.classList.add('active');
+      tabPublications.classList.remove('active');
+      panelCabinets.style.display = 'flex';
+      panelPublications.style.display = 'none';
+      clientListEl.style.display = 'block';
+      sidebarTitle.textContent = 'Cabinets';
+    });
+
+    tabPublications.addEventListener('click', function () {
+      tabPublications.classList.add('active');
+      tabCabinets.classList.remove('active');
+      panelPublications.style.display = 'block';
+      panelCabinets.style.display = 'none';
+      clientListEl.style.display = 'none';
+      sidebarTitle.textContent = 'Publications';
+      loadPublicationsAdmin();
+    });
+
+    // --- Formulaire de publication ---
+    const pubForm = document.getElementById('pub-form');
+    const pubStatus = document.getElementById('pub-status');
+    const pubListEl = document.getElementById('pub-list');
+
+    pubForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById('pub-title').value.trim();
+      const type = document.getElementById('pub-type').value;
+      const content = document.getElementById('pub-content').value.trim();
+      const url = document.getElementById('pub-url').value.trim();
+
+      if (!title || !content) return;
+
+      db.collection('publications')
+        .add({
+          title: title,
+          type: type,
+          content: content,
+          url: url,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(function () {
+          pubForm.reset();
+          pubStatus.textContent = 'Publié avec succès.';
+          pubStatus.style.display = 'block';
+          setTimeout(function () { pubStatus.style.display = 'none'; }, 4000);
+        })
+        .catch(function (err) {
+          alert('Erreur lors de la publication : ' + err.message);
+        });
+    });
+
+    function loadPublicationsAdmin() {
+      if (unsubscribePublications) return; // déjà en écoute
+      unsubscribePublications = db
+        .collection('publications')
+        .onSnapshot(function (snapshot) {
+          pubListEl.innerHTML = '';
+
+          if (snapshot.empty) {
+            pubListEl.innerHTML = '<p class="empty-list">Aucune publication pour le moment.</p>';
+            return;
+          }
+
+          const docs = snapshot.docs.slice().sort(function (a, b) {
+            const ta = a.data().createdAt && a.data().createdAt.toMillis ? a.data().createdAt.toMillis() : 0;
+            const tb = b.data().createdAt && b.data().createdAt.toMillis ? b.data().createdAt.toMillis() : 0;
+            return tb - ta;
+          });
+
+          docs.forEach(function (doc) {
+            const d = doc.data();
+            const item = document.createElement('div');
+            item.className = 'pub-item';
+            item.innerHTML =
+              '<div><h4>' + d.title + '</h4><p>' + (d.type || 'article') + '</p></div>' +
+              '<button type="button" aria-label="Supprimer"><i class="fa-solid fa-trash"></i></button>';
+            item.querySelector('button').addEventListener('click', function () {
+              if (confirm('Supprimer cette publication ?')) {
+                db.collection('publications').doc(doc.id).delete();
+              }
+            });
+            pubListEl.appendChild(item);
+          });
+        });
+    }
   </script>
 </body>
 </html>
